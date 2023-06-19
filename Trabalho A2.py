@@ -41,6 +41,40 @@ if st.button("Consultar Gastos"):
             st.write("Não foi possível obter os gastos do parlamentar.")
     else:
         st.write("Por favor, digite o nome do deputado.")
+        import csv
+
+def calcular_fornecedoras_mais_recebem(dados):
+    fornecedoras = {}
+    
+    for dado in dados:
+        ano = dado['Ano']
+        fornecedora = dado['Fornecedora']
+        valor = float(dado['Valor'])
+        
+        if ano >= 2019 and ano <= 2022:
+            if fornecedora in fornecedoras:
+                fornecedoras[fornecedora] += valor
+            else:
+                fornecedoras[fornecedora] = valor
+    
+    fornecedoras_ordenadas = sorted(fornecedoras.items(), key=lambda x: x[1], reverse=True)
+    
+    return fornecedoras_ordenadas
+
+# Carregar dados do arquivo CSV
+dados = []
+with open('dados.csv', 'r', newline='') as arquivo:
+    leitor = csv.DictReader(arquivo)
+    for linha in leitor:
+        dados.append(linha)
+
+# Calcular as fornecedoras que mais receberam quotas financeiras
+fornecedoras_mais_recebem = calcular_fornecedoras_mais_recebem(dados)
+
+# Imprimir o resultado
+for fornecedora, valor in fornecedoras_mais_recebem:
+    print(f"{fornecedora}: R${valor:.2f}")
+
 
 
 
