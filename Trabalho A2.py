@@ -1,5 +1,5 @@
-import requests
-import streamlit as st
+import requests (pip install requests)
+import streamlit as st (pip install streamlit)
 
 def obter_gastos_por_parlamentar(nome_deputado):
     url_base = "https://dadosabertos.camara.leg.br/api/v2/"
