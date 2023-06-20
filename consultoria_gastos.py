@@ -2,7 +2,7 @@ import requests
 import streamlit as st
 
 def obter_gastos_por_parlamentar(nome_deputado):
-    url_base = "https://dadosabertos.camara.leg.br/api/v2/"
+    url_base = "https://dadosabertos.camara.leg.br/api/v2/deputados"
     endpoint = f"deputados?nome={nome_deputado}"
     url = url_base + endpoint
 
