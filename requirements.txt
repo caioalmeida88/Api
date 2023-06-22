@@ -1,6 +1,6 @@
 requests
 streamlit
-matplotlib.pyplot
+matplotlib
 
 
 
