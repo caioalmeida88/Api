@@ -63,9 +63,21 @@ for pag in range(1, 100):
 print (f'Total retornado API Câmara: R$ {total:.2f}')
 def chave(f): return f[1]
 maiores = sorted(cnpjCpfFornecedores.items(), key=chave, reverse=True)
-top5 = [maiores[1],maiores[2],maiores[3],maiores[4],maiores[5],maiores[6]]
 
-chart_data = pd.DataFrame(
+st.write("Gráfico de gastos fornecedores")
+
+def criar_grafico():
+    # Dados para o gráfico de exemplo
+    x = [maiores[1][1], maiores[2][1], maiores[3][1], maiores[4][1], maiores[5][1]]
+    y = [2019,2020,2021,2022]
+
+    # Criar o gráfico de linhas
+    plt.plot(x, y)
+
+    # Exibir o gráfico
+    st.pyplot(plt)
+
+chart_data = pd.top5(
     np.random.randn(20, 3),
     columns=["2019", "2020", "2021",2022])
 
