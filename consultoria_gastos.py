@@ -66,7 +66,7 @@ def chave(f): return f[1]
 maiores = sorted(cnpjCpfFornecedores.items(), key=chave, reverse=True)
 top5 = [maiores[1],maiores[2],maiores[3],maiores[4],maiores[5],maiores[6]]
 
-chart_data = pd.top5(
+chart_data = pd.DataFrame(
     np.random.randn(20, 3),
     columns=["2019", "2020", "2021",2022])
 
