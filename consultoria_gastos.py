@@ -43,3 +43,31 @@ if st.button("Consultar Gastos"):
             st.write("Não foi possível obter os gastos do parlamentar.")
     else:
         st.write("Por favor, digite o nome do deputado.")
+
+total = 0
+fornecedores = {}
+cnpjCpfFornecedores = {}
+for pag in range(1, 100):
+  u = f'https://dadosabertos.camara.leg.br/api/v2/deputados/178939/despesas?ano=2019&ano=2020&ano=2021&ano=2022&ordem=ASC&ordenarPor=ano&pagina={pag}&itens=100'
+  r = requests.get(u).json()
+  for gasto in r['dados']:
+    valor = float(gasto['valorLiquido'])
+    total = total + valor
+    nome = gasto['nomeFornecedor']
+    cnpjCpf = gasto['cnpjCpfFornecedor']
+    if cnpjCpf not in cnpjCpfFornecedores:
+      cnpjCpfFornecedores[cnpjCpf] = valor
+      fornecedores[cnpjCpf] = nome
+    else:
+      cnpjCpfFornecedores[cnpjCpf] = cnpjCpfFornecedores[cnpjCpf] + valor
+
+print (f'Total retornado API Câmara: R$ {total:.2f}')
+def chave(f): return f[1]
+maiores = sorted(cnpjCpfFornecedores.items(), key=chave, reverse=True)
+top5 = [maiores[1],maiores[2],maiores[3],maiores[4],maiores[5],maiores[6]]
+
+chart_data = pd.top5(
+    np.random.randn(20, 3),
+    columns=["2019", "2020", "2021",2022])
+
+st.bar_chart(chart_data)
