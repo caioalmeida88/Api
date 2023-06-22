@@ -43,37 +43,3 @@ if st.button("Consultar Gastos"):
     else:
         st.write("Por favor, digite o nome do deputado.")
 
-total = 0
-fornecedores = {}
-cnpjCpfFornecedores = {}
-for pag in range(1, 100):
-  u = f'https://dadosabertos.camara.leg.br/api/v2/deputados/178939/despesas?ano=2019&ano=2020&ano=2021&ano=2022&ordem=ASC&ordenarPor=ano&pagina={pag}&itens=100'
-  r = requests.get(u).json()
-  for gasto in r['dados']:
-    valor = float(gasto['valorLiquido'])
-    total = total + valor
-    nome = gasto['nomeFornecedor']
-    cnpjCpf = gasto['cnpjCpfFornecedor']
-    if cnpjCpf not in cnpjCpfFornecedores:
-      cnpjCpfFornecedores[cnpjCpf] = valor
-      fornecedores[cnpjCpf] = nome
-    else:
-      cnpjCpfFornecedores[cnpjCpf] = cnpjCpfFornecedores[cnpjCpf] + valor
-
-print (f'Total retornado API Câmara: R$ {total:.2f}')
-def chave(f): return f[1]
-maiores = sorted(cnpjCpfFornecedores.items(), key=chave, reverse=True)
-
-st.write("Gráfico de gastos fornecedores")
-
-def criar_grafico():
-    # Dados para o gráfico de exemplo
-    x = [maiores[1][1], maiores[2][1], maiores[3][1], maiores[4][1], maiores[5][1]]
-    y = [2019,2020,2021,2022]
-
-    # Criar o gráfico de linhas
-    plt.plot(x, y)
-
-    # Exibir o gráfico
-    st.pyplot(plt)
-
