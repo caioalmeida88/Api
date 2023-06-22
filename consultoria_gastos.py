@@ -1,5 +1,7 @@
 import requests
 import streamlit as st
+import pandas as pd
+import numpy as np
 
 def obter_gastos_por_parlamentar(nome_deputado):
     url_base = "https://dadosabertos.camara.leg.br/api/v2/deputados"
