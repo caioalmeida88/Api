@@ -3,7 +3,7 @@ import streamlit as st
 
 def obter_gastos_por_parlamentar(nome_deputado):
     url_base = "https://dadosabertos.camara.leg.br/api/v2/deputados"
-    endpoint = f"deputados?nome={nome_deputado}"
+    endpoint = f"?nome={nome_deputado}"
     url = url_base + endpoint
 
     try:
@@ -11,7 +11,7 @@ def obter_gastos_por_parlamentar(nome_deputado):
         if response.status_code == 200:
             dados = response.json()
             deputado_id = dados['dados'][0]['id']
-            endpoint_gastos = f"deputados/{deputado_id}/despesas?ano=2019,2020,2021,2022"
+            endpoint_gastos = f"/{deputado_id}/despesas?ano=2019,2020,2021,2022"
             url_gastos = url_base + endpoint_gastos
             response_gastos = requests.get(url_gastos)
             if response_gastos.status_code == 200:
