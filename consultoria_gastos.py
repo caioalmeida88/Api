@@ -77,8 +77,3 @@ def criar_grafico():
     # Exibir o gráfico
     st.pyplot(plt)
 
-chart_data = pd.top5(
-    np.random.randn(20, 3),
-    columns=["2019", "2020", "2021",2022])
-
-st.bar_chart(chart_data)
